@@ -1,20 +1,41 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- <link rel="stylesheet" href="estilos.css"> -->
-  <title>Formulario</title>
-</head>
-<body>
-  <form action="/add_contact" method="POST" class="form">
-    <input type="text" name="name" placeholder="nombre">
-    <input type="text" name="lastname" placeholder="apellido">
-    <input type="text" name="age" placeholder="edad">
-    <input type="text" name="direction" placeholder="direccion">
-    <button>Enviar</button>
-  </form>
-</body>
-</html>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<p>{{message}}</p>
+{% endfor %}
+{% endif %}
+{% endwith%}
+
+<form action="/add_contact" method="POST" class="form">
+  <input type="text" name="name" placeholder="nombre">
+  <input type="text" name="lastname" placeholder="apellido">
+  <input type="text" name="age" placeholder="edad">
+  <input type="text" name="direction" placeholder="direccion">
+  <button type="submit">Enviar</button>
+</form>
+<table>
+  <thead>
+    <tr>
+      <td>Name</td>
+      <td>Lastname</td>
+      <td>Age</td>
+      <td>Direction</td>
+      <td>Operaciones</td>
+    </tr>
+  </thead>
+  <tbody>
+    {% for cliente in clientes %}
+    <tr>
+      <td>{{ cliente.1 }}</td>
+      <td>{{ cliente.2 }}</td>
+      <td>{{ cliente.3 }}</td>
+      <td>{{ cliente.4 }}</td>
+      <td>
+        <a href="/edit_contact/{{cliente.0}}">Edit</a>
+        <a href="/del_contact/{{cliente.0}}">Delete</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
