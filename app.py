@@ -38,9 +38,13 @@ def add_contact():
         flash('Contacto agregado correctamente')
         return redirect(url_for('home'))
 
-@app.route('/edit_contact')
-def edit_contact():
-    return 'edit contact'
+@app.route('/edit_contact/<string:id>')
+def get_contact(id):
+    cur = mysql.connection.cursor()
+    cur.execute('SELECT * FROM clientes WHERE id = {0}'.format(id))
+    data = cur.fetchall()
+    print(data)
+    return render_template('edit_contact.html', contact = data[0])
 
 @app.route('/del_contact/<string:id>')
 def del_contact(id):

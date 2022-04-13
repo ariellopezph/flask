@@ -1,8 +1,8 @@
 body {
-  background-color: black;
+  background-color: rgb(207, 0, 0) !important;
 }
 
-.form {
-  display: flex;
-  justify-content: center;
+.container {
+  background-color: red;
+  
 }
