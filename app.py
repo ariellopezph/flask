@@ -25,6 +25,9 @@ def home():
     data = cur.fetchall()
     return render_template('index.html', clientes = data)
 
+
+# Agregar contacto
+
 @app.route('/add_contact', methods=['POST'])
 def add_contact():
     if request.method == 'POST':
@@ -38,6 +41,8 @@ def add_contact():
         flash('Contacto agregado correctamente')
         return redirect(url_for('home'))
 
+# Editar contacto
+
 @app.route('/edit_contact/<string:id>')
 def get_contact(id):
     cur = mysql.connection.cursor()
@@ -45,6 +50,32 @@ def get_contact(id):
     data = cur.fetchall()
     print(data)
     return render_template('edit_contact.html', contact = data[0])
+
+# Respuesta editar contacto
+
+@app.route('/update/<string:id>', methods = ['POST'])
+def update_contact(id):
+    if request.method == 'POST':
+        name = request.form['name']
+        lastname = request.form['lastname']
+        age = request.form['age']
+        direction = request.form['direction']
+        cur = mysql.connection.cursor()
+        cur.execute("""
+        UPDATE clientes 
+        SET name = %s,
+            lastname = %s,
+            age = %s,
+            direction = %s
+        WHERE id = %s
+        
+        """, (name, lastname, age, direction, id))
+        mysql.connection.commit()
+        flash("Contacto editado")
+        return redirect(url_for('home'))
+
+
+# Eliminar contacto
 
 @app.route('/del_contact/<string:id>')
 def del_contact(id):

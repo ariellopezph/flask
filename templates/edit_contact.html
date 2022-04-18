@@ -20,12 +20,12 @@
 {% endwith%}
 <div class="container" style="padding: 20px 100px 50px;">
   <div class="container" style="margin: 80px;">
-    <form action="/" method="POST" class="form">
+    <form action="/update/{{contact.0}}" method="POST" class="form">
       <input type="text" name="name" placeholder="nombre" value="{{ contact.1 }}">
       <input type="text" name="lastname" placeholder="apellido" value="{{ contact.2 }}">
       <input type="text" name="age" placeholder="edad" value="{{ contact.3 }}">
-      <input type="text" name="direction" placeholder="direccion" value="{{ contact.1 }}">
-      <button type="submit" class="btn btn-primary">Enviar</button>
+      <input type="text" name="direction" placeholder="direccion" value="{{ contact.4 }}">
+      <button type="submit" class="btn btn-primary">Guardar</button>
     </form>
   </div>
   
